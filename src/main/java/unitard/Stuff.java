@@ -20,11 +20,11 @@ public abstract class Stuff implements Iterable<Entry> {
     public static final Stuff EMPTY_MAP = new MapStuff();
     public static final Stuff EMPTY_LIST = new ListStuff();
 
-    public static Stuff of(Map<?, ?> map) {
+    public static Stuff fromMap(Map<?, ?> map) {
         return new MapStuff(getEntriesFromMap(map));
     }
 
-    public static Stuff of(List<?> list) {
+    public static Stuff fromList(List<?> list) {
         return new ListStuff(copyIntoImmutableList(list.stream()));
     }
 
@@ -32,8 +32,20 @@ public abstract class Stuff implements Iterable<Entry> {
         return new ListStuff(Arrays.asList(elements));
     }
 
-    public static Stuff mapOf(Object key, Object value) {
-        return EMPTY_MAP.put(key, value);
+    public static Stuff mapOf(Object... keysAndValues) {
+        Map<Object,Object> map = new HashMap<>();
+        boolean expectingKey = true;
+        Object thisKey = null; 
+        for (Object obj : keysAndValues) {
+            if (expectingKey) {
+                thisKey = obj;
+                expectingKey = false;
+            } else {
+                map.put(thisKey, obj);
+                expectingKey = true;
+            }
+        }
+        return new MapStuff(map);
     }
 
     protected abstract Hopefully<Object> getHere(Object key);

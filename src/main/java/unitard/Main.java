@@ -14,7 +14,7 @@ public class Main {
     public static Stuff copyJsonNode(JsonNode node) {
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Object> map = mapper.convertValue(node, Map.class);
-        return Stuff.of(map);
+        return Stuff.fromMap(map);
     }
 
     public static final JsonNode jsonNode;
@@ -57,7 +57,12 @@ public class Main {
 
         System.out.println("---------- REMOVE TEST ------------");
 
-        Stuff fromMap = Stuff.of(map);
+        Stuff listed = Stuff.listOf("a", "b", "c", 1, 2, 3);
+        Stuff mapped = Stuff.mapOf("a", 1, "b", 2, "c", 3, "X");
+        System.out.println("Listed: " + listed);
+        System.out.println("Mapped: " + mapped);
+
+        Stuff fromMap = Stuff.fromMap(map);
 
         System.out.println(fromMap);
         System.out.println(fromMap.remove("a"));

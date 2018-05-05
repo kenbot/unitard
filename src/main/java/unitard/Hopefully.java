@@ -121,8 +121,8 @@ public abstract class Hopefully<A> {
 
     public Hopefully<Stuff> asStuff() {
         return as(Stuff.class)
-                .orElse(() -> as(Map.class).map(Stuff::of))
-                .orElse(() -> as(List.class).map(Stuff::of));
+                .orElse(() -> as(Map.class).map(Stuff::fromMap))
+                .orElse(() -> as(List.class).map(Stuff::fromList));
     }
 
     public boolean isTrue() {

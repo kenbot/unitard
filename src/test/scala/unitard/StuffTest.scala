@@ -59,7 +59,7 @@ class StuffTest extends Specification with ScalaCheck {
               jmap.put(e.getKey, e.getValue)
           })
 
-          Stuff.of(jmap) === stuff
+          Stuff.fromMap(jmap) === stuff
       }
     }
   }

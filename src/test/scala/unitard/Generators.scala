@@ -74,10 +74,10 @@ object Generators {
   } yield (key, value)).map(_.asJava)
 
   def genListStuff: Gen[Stuff] =
-    genJavaList.map(Stuff.of)
+    genJavaList.map(Stuff.fromList)
 
   def genMapStuff: Gen[Stuff] =
-    genJavaMap.map(Stuff.of)
+    genJavaMap.map(Stuff.fromMap)
 
   def genStuff: Gen[Stuff] = oneOf(genListStuff, genMapStuff)
 
